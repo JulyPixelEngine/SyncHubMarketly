@@ -1,11 +1,11 @@
-import { GreetingCard } from '../features/greeting/components/GreetingCard';
+import { DashboardLayout } from '../layouts/DashboardLayout';
+import { DashboardPage } from '../pages/DashboardPage';
 
 function App() {
   return (
-    <div className="app">
-      <h1>SyncHub Marketly</h1>
-      <GreetingCard />
-    </div>
+    <DashboardLayout>
+      <DashboardPage />
+    </DashboardLayout>
   );
 }
 
