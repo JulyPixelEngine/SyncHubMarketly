@@ -8,6 +8,6 @@ public class GreetingApplicationService implements GreetingService {
 
     @Override
     public String getGreeting() {
-        return "Hello from Spring Boot!";
+        return "Hello from Greeting Application Service!";
     }
 }
