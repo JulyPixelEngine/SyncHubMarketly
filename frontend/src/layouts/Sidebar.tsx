@@ -84,7 +84,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       </nav>
 
       {/* Collapse toggle */}
-      <button
+      {/* <button
         onClick={onToggle}
         className="flex items-center justify-center h-12 border-t border-gray-800 hover:bg-gray-800 transition-colors"
       >
@@ -96,7 +96,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
         </svg>
-      </button>
+      </button> */}
     </aside>
   );
 }

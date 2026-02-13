@@ -1,7 +1,18 @@
-FROM gradle:8.5-jdk17 AS build
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
-COPY . .
-RUN gradle clean build -x test
+
+# Copy gradle wrapper and build files
+COPY gradle gradle
+COPY gradlew gradlew.bat build.gradle settings.gradle ./
+
+# Make gradlew executable
+RUN chmod +x gradlew
+
+# Copy source code
+COPY src src
+
+# Build application
+RUN ./gradlew clean build -x test --no-daemon
 
 FROM eclipse-temurin:17-jre
 WORKDIR /app

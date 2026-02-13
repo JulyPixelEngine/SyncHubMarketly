@@ -1,0 +1,23 @@
+# Build outputs
+build/
+.gradle/
+out/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Don't ignore gradle wrapper (important!)
+!gradle/
+!gradlew
+!gradlew.bat
