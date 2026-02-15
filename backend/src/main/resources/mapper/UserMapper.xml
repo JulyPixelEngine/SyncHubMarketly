@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.synchub.marketly.infrastructure.persistence.mapper.UserMapper">
+
+    <resultMap id="UserResultMap" type="com.synchub.marketly.domain.user.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="isActive" column="is_active"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="UserResultMap">
+        SELECT id, username, first_name, last_name, email, password, phone, is_active, created_at, updated_at
+        FROM users
+    </select>
+
+    <select id="findById" resultMap="UserResultMap">
+        SELECT id, username, first_name, last_name, email, password, phone, is_active, created_at, updated_at
+        FROM users
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.synchub.marketly.domain.user.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (username, first_name, last_name, email, password, phone, is_active, created_at, updated_at)
+        VALUES (#{username}, #{firstName}, #{lastName}, #{email}, #{password}, #{phone}, #{isActive}, NOW(), NOW())
+    </insert>
+
+    <update id="update" parameterType="com.synchub.marketly.domain.user.User">
+        UPDATE users
+        SET username   = #{username},
+            first_name = #{firstName},
+            last_name  = #{lastName},
+            email      = #{email},
+            phone      = #{phone},
+            is_active  = #{isActive},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM users
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

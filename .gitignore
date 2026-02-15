@@ -15,3 +15,8 @@ backend/.gradle/
 # Frontend
 frontend/node_modules/
 frontend/dist/
+
+# Environment
+.env
+.env.local
+.env.*.local

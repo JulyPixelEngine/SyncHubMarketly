@@ -47,7 +47,7 @@ const navItems = [
   },
 ];
 
-export function Sidebar({ collapsed, onToggle }: SidebarProps) {
+export function Sidebar({ collapsed }: SidebarProps) {
   return (
     <aside
       className={`fixed top-0 left-0 h-full bg-gray-900 text-white transition-all duration-300 z-30 flex flex-col ${

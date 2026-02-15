@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: synchub-marketly
+  datasource:
+    url: jdbc:postgresql://localhost:5432/synchub_marketly
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.synchub.marketly.domain
+  configuration:
+    map-underscore-to-camel-case: true
