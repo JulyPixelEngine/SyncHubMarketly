@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.synchub.marketly.infrastructure.persistence.mapper.MenuMapper">
+
+    <resultMap id="MenuResultMap" type="com.synchub.marketly.domain.menu.Menu">
+        <id property="id" column="id"/>
+        <result property="menuCode" column="menu_code"/>
+        <result property="name" column="name"/>
+        <result property="icon" column="icon"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="isActive" column="is_active"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <select id="findAllActive" resultMap="MenuResultMap">
+        SELECT id, menu_code, name, icon, parent_id, sort_order, is_active, created_at, updated_at
+        FROM menus
+        WHERE is_active = TRUE
+        ORDER BY sort_order
+    </select>
+
+</mapper>
