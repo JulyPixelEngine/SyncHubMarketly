@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.synchub.marketly.infrastructure.persistence.mapper.ScrapeJobMapper">
+
+    <resultMap id="ScrapeJobResultMap" type="com.synchub.marketly.domain.scraper.ScrapeJob">
+        <id property="id" column="id"/>
+        <result property="status" column="status"/>
+        <result property="totalCategories" column="total_categories"/>
+        <result property="scrapedCount" column="scraped_count"/>
+        <result property="errorMessage" column="error_message"/>
+        <result property="startedAt" column="started_at"/>
+        <result property="completedAt" column="completed_at"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.synchub.marketly.domain.scraper.ScrapeJob" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO scrape_jobs (status, total_categories, scraped_count, started_at, created_at)
+        VALUES (#{status}, #{totalCategories}, #{scrapedCount}, NOW(), NOW())
+    </insert>
+
+    <update id="updateStatus">
+        UPDATE scrape_jobs
+        SET status = #{status},
+            error_message = #{errorMessage}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateProgress">
+        UPDATE scrape_jobs
+        SET scraped_count = #{scrapedCount}
+        WHERE id = #{id}
+    </update>
+
+    <update id="markCompleted">
+        UPDATE scrape_jobs
+        SET status = 'COMPLETED',
+            completed_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <select id="findById" resultMap="ScrapeJobResultMap">
+        SELECT id, status, total_categories, scraped_count, error_message, started_at, completed_at, created_at
+        FROM scrape_jobs
+        WHERE id = #{id}
+    </select>
+
+    <select id="findRecent" resultMap="ScrapeJobResultMap">
+        SELECT id, status, total_categories, scraped_count, error_message, started_at, completed_at, created_at
+        FROM scrape_jobs
+        ORDER BY created_at DESC
+        LIMIT #{limit}
+    </select>
+
+    <select id="findLatestSuccessful" resultMap="ScrapeJobResultMap">
+        SELECT id, status, total_categories, scraped_count, error_message, started_at, completed_at, created_at
+        FROM scrape_jobs
+        WHERE status = 'COMPLETED'
+        ORDER BY completed_at DESC
+        LIMIT 1
+    </select>
+
+    <select id="findByStatus" resultMap="ScrapeJobResultMap">
+        SELECT id, status, total_categories, scraped_count, error_message, started_at, completed_at, created_at
+        FROM scrape_jobs
+        WHERE status = #{status}
+        ORDER BY created_at DESC
+        LIMIT 1
+    </select>
+
+</mapper>

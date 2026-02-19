@@ -1,13 +1,13 @@
-import { ReactNode } from 'react';
 import { Sidebar } from './Sidebar';
 import { TopNav } from './TopNav';
 import { useSidebar } from '../hooks/useSidebar';
+import { TabBar, TabContent, type TabPanel } from '../components/Tabs';
 
 interface DashboardLayoutProps {
-  children: ReactNode;
+  tabPanels: TabPanel[];
 }
 
-export function DashboardLayout({ children }: DashboardLayoutProps) {
+export function DashboardLayout({ tabPanels }: DashboardLayoutProps) {
   const { collapsed, toggle } = useSidebar();
 
   return (
@@ -19,7 +19,10 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           collapsed ? 'ml-16' : 'ml-64'
         }`}
       >
-        <div className="p-6">{children}</div>
+        <TabBar />
+        <div className="p-6">
+          <TabContent panels={tabPanels} />
+        </div>
       </main>
     </div>
   );

@@ -15,3 +15,12 @@ mybatis:
   type-aliases-package: com.synchub.marketly.domain
   configuration:
     map-underscore-to-camel-case: true
+
+scraper:
+  headless: false
+  request-delay-ms: 3000
+  cache-cooldown-minutes: 60
+  max-retries: 3
+  timeout-ms: 30000
+  user-agent: "SyncHubMarketly-Bot/1.0 (+https://synchubmarketly.com/bot)"
+  top-n: 5

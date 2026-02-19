@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.synchub.marketly.infrastructure.persistence.mapper.ScrapedProductMapper">
+
+    <resultMap id="ScrapedProductResultMap" type="com.synchub.marketly.domain.scraper.ScrapedProduct">
+        <id property="id" column="id"/>
+        <result property="jobId" column="job_id"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="rank" column="rank"/>
+        <result property="productName" column="product_name"/>
+        <result property="price" column="price"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="productUrl" column="product_url"/>
+        <result property="sourceSite" column="source_site"/>
+        <result property="extraData" column="extra_data"/>
+        <result property="scrapedAt" column="scraped_at"/>
+    </resultMap>
+
+    <insert id="insertBatch">
+        INSERT INTO scraped_products (job_id, category_id, rank, product_name, price, image_url, product_url, source_site, extra_data, scraped_at)
+        VALUES
+        <foreach collection="products" item="p" separator=",">
+            (#{p.jobId}, #{p.categoryId}, #{p.rank}, #{p.productName}, #{p.price}, #{p.imageUrl}, #{p.productUrl}, #{p.sourceSite}, #{p.extraData}, NOW())
+        </foreach>
+    </insert>
+
+    <select id="findByJobId" resultMap="ScrapedProductResultMap">
+        SELECT sp.id, sp.job_id, sp.category_id, sp.rank, sp.product_name, sp.price,
+               sp.image_url, sp.product_url, sp.source_site, sp.extra_data, sp.scraped_at
+        FROM scraped_products sp
+        WHERE sp.job_id = #{jobId}
+        ORDER BY sp.category_id, sp.rank
+    </select>
+
+</mapper>
