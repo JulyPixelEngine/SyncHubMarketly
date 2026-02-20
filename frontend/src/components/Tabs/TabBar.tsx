@@ -94,7 +94,7 @@ export function TabBar() {
         ref={tabListRef}
         role="tablist"
         aria-label="Content tabs"
-        className="relative flex-1 flex items-center overflow-x-auto"
+        className="relative flex-1 flex items-center overflow-x-auto ml-1 mt-1"
         onKeyDown={handleKeyDown}
       >
         {openTabs.map((tab) => (
@@ -106,7 +106,7 @@ export function TabBar() {
             aria-controls={`tabpanel-${tab.id}`}
             tabIndex={activeId === tab.id ? 0 : -1}
             onClick={() => setActiveTab(tab.id)}
-            className={`group relative flex items-center gap-1.5 px-3 py-2 text-xs font-medium whitespace-nowrap transition-colors outline-none ${
+            className={`group relative flex items-center gap-1.5 px-3 py-2 text-xs font-medium whitespace-nowrap transition-colors outline-none bg-blue-50 rounded-t-lg ${
               activeId === tab.id
                 ? 'text-indigo-600'
                 : 'text-gray-500 hover:text-gray-700'
