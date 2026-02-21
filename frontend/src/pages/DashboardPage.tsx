@@ -1,7 +1,118 @@
 import { StatCard } from '../components/StatCard';
 import { ChartPlaceholder } from '../components/ChartPlaceholder';
 import { ActivityTable, ActivityItem } from '../components/ActivityTable';
+import { ActivityTimeline, type TimelineActivity } from '../components/ActivityTimeline/ActivityTimeline';
+import { IssueList, type Issue } from '../components/IssueList/IssueList';
 
+// ─── Timeline mock data ────────────────────────────────────────────────────────
+const timelineActivities: TimelineActivity[] = [
+  {
+    id: 't1',
+    time: '9:23 PM',
+    text: 'Extended license purchased from France.',
+    dotColor: 'bg-violet-500',
+  },
+  {
+    id: 't2',
+    time: '5:06 PM',
+    text: 'a new rating has been received.',
+    boldText: 'a new rating has been received.',
+    rating: 4,
+    dotColor: 'bg-emerald-500',
+  },
+  {
+    id: 't3',
+    time: '12:18 PM',
+    text: 'Customer\'s problem solved.',
+    dotColor: 'bg-amber-400',
+  },
+  {
+    id: 't4',
+    time: 'a day ago',
+    text: 'Regular license purchased from United Kingdom.',
+    dotColor: 'bg-violet-500',
+  },
+  {
+    id: 't5',
+    time: 'a day ago',
+    text: 'Regular license purchased from Italy.',
+    dotColor: 'bg-violet-500',
+  },
+  {
+    id: 't6',
+    time: '2 days ago',
+    text: 'New version released.',
+    link: { label: 'V12.1.0', href: '#' },
+    dotColor: 'bg-violet-500',
+  },
+  {
+    id: 't7',
+    time: '3 days ago',
+    text: 'Market research meeting for new product.',
+    dotColor: 'bg-rose-500',
+  },
+  {
+    id: 't8',
+    time: '7 days ago',
+    text: 'Updating, compiling and going live the product.',
+    dotColor: 'bg-pink-400',
+  },
+];
+
+// ─── Issue list mock data ──────────────────────────────────────────────────────
+const issuesMockData: Issue[] = [
+  {
+    id: 'i1',
+    title: 'New Products will be added',
+    completed: true,
+    badge: { label: 'New', variant: 'new' },
+    dueIn: 'in a day',
+  },
+  {
+    id: 'i2',
+    title: 'Cover images will be updated',
+    completed: true,
+    badge: { label: 'Update', variant: 'update' },
+    dueIn: 'in 2 days',
+  },
+  {
+    id: 'i3',
+    title: 'Preparing for A/B testing',
+    completed: false,
+    badge: { label: 'Test', variant: 'test' },
+    dueIn: 'in 2 days',
+  },
+  {
+    id: 'i4',
+    title: 'Google Analytics data will be reviewed',
+    completed: false,
+    badge: { label: 'Report', variant: 'report' },
+    dueIn: 'in 4 days',
+  },
+  {
+    id: 'i5',
+    title: 'Invoices will be issued',
+    completed: false,
+    badge: { label: 'Print', variant: 'print' },
+    dueIn: 'in 9 days',
+  },
+  {
+    id: 'i6',
+    title: 'Dependencies check and audit',
+    completed: false,
+    badge: { label: 'Control', variant: 'control' },
+    dueIn: 'in 15 days',
+  },
+  {
+    id: 'i7',
+    title: 'End of month meeting',
+    completed: false,
+    badge: { label: 'Meeting', variant: 'meeting' },
+    dueIn: 'in a month',
+  },
+];
+
+// ─── Legacy activity table data ────────────────────────────────────────────────
 const sampleActivities: ActivityItem[] = [
   { id: '1', user: 'Alice Kim', action: 'Added product', target: 'Wireless Headphones Pro', date: '2 min ago' },
   { id: '2', user: 'Bob Lee', action: 'Updated price', target: 'Smart Watch X200', date: '15 min ago' },
@@ -77,6 +188,22 @@ export function DashboardPage() {
       <section>
         <h2 className="text-xl font-bold text-gray-900 mb-4">Recent Activity</h2>
         <ActivityTable items={sampleActivities} />
+      </section>
+
+      {/* Activity Timeline + Issue List */}
+      <section>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          <ActivityTimeline
+            activities={timelineActivities}
+            subtitle="last 2 weeks"
+          />
+          <IssueList
+            title="John's Issue"
+            owner="Project Manager"
+            issues={issuesMockData}
+            interactive
+          />
+        </div>
       </section>
     </div>
   );
